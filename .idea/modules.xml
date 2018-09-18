@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/javaExcerise.iml" filepath="$PROJECT_DIR$/javaExcerise.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webExcerise/webExcerise.iml" filepath="$PROJECT_DIR$/webExcerise/webExcerise.iml" />
     </modules>
   </component>
 </project>
