@@ -3,21 +3,21 @@ package excerise;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class Sequence<Type> implements Cloneable, Iterable<Type> {
+public class SequenceList<Type> implements Cloneable, Iterable<Type> {
 
     private static final int BASE_CAPACITY = 10;
     private Type[] array;
     private int size;
 
-    public Sequence() {
+    public SequenceList() {
         this(BASE_CAPACITY);
     }
 
-    public Sequence(int size) {
+    public SequenceList(int size) {
         array = (Type[]) new Object[size];
     }
 
-    public Sequence(Type[] a) {
+    public SequenceList(Type[] a) {
         this(a.length);
         System.arraycopy(a, 0, array, 0, a.length);
         size = a.length;
@@ -97,7 +97,7 @@ public class Sequence<Type> implements Cloneable, Iterable<Type> {
         size++;
     }
 
-    public void addAll(Sequence<Type> a) {
+    public void addAll(SequenceList<Type> a) {
         for (int i = 0; i < a.size(); i++) {
             add(a.get(i));
         }
@@ -116,13 +116,13 @@ public class Sequence<Type> implements Cloneable, Iterable<Type> {
         return -1;
     }
 
-    public Sequence<Type> clone() {
+    public SequenceList<Type> clone() {
         try {
             super.clone();
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
-        Sequence<Type> temp = new Sequence<>(size);
+        SequenceList<Type> temp = new SequenceList<>(size);
         System.arraycopy(array, 0, temp.array, 0, size);
         temp.size = this.size;
         return temp;
@@ -155,7 +155,7 @@ public class Sequence<Type> implements Cloneable, Iterable<Type> {
 
         @Override
         public void remove() {
-            Sequence.this.remove(--current);
+            SequenceList.this.remove(--current);
         }
     }
 

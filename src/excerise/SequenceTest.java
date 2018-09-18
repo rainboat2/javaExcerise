@@ -3,7 +3,7 @@ package excerise;
 public class SequenceTest {
 
     public static void main(String[] args){
-        Sequence<Integer> list = new Sequence<>();
+        SequenceList<Integer> list = new SequenceList<>();
         int num = (int)(Math.random()*100);
 
         System.out.println("------添加测试-------");
@@ -54,7 +54,7 @@ public class SequenceTest {
 
         System.out.println("------拷贝测试------");
         System.out.println("将数组拷贝一份并添加到原数组的后面");
-        Sequence<Integer> temp = list.clone();
+        SequenceList<Integer> temp = list.clone();
         list.addAll(temp);
         System.out.println("测试成功，数组为：" + list);
     }
