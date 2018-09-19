@@ -3,7 +3,7 @@ package excerise;
 public class SparseMatrix<Type> {
 
     public static void main(String[] args){
-        SparseMatrix<Integer> sp = new SparseMatrix<>(7, 6);
+        SparseMatrix<Integer> sp = new SparseMatrix<>(6, 7);
         sp.set(0, 3, 22);
         sp.set(0, 6, 15);
         sp.set(1, 1, 11);
@@ -15,60 +15,61 @@ public class SparseMatrix<Type> {
         System.out.println(sp.transpose());
     }
 
-    private Term[] termList;
+    private int terms;
+    private Term<Type>[] termList;
     private int cols;
     private int rows;
-    private int terms;
 
-    private class Term{
-        public int col;
-        public int row;
-        public Type value;
+    private class Term<Type>{
 
-        public Term(int col, int row, Type value){
-            this.col = col;
+        private int col;
+        private int row;
+        private Type value;
+
+        public Term(int row, int col, Type value){
             this.row = row;
+            this.col = col;
             this.value = value;
         }
 
-        public Term(){}
-
         public String toString(){
-            return col + " " + row + " " + value;
+            return row + " " + col + " " + value;
         }
     }
 
-    public SparseMatrix(int cols, int rows){
+    public SparseMatrix(int rows, int cols){
         this.cols = cols;
         this.rows = rows;
         termList = new Term[10];
     }
 
     public void set(int row, int col, Type value){
-        termList[terms++] = new Term(col, row, value);
+        termList[terms++] = new Term<>(row, col, value);
     }
 
     public SparseMatrix<Type> transpose(){
         int[] rowSize = new int[cols];
         int[] rowStart = new int[cols];
 
-        for(int i = 0; i < termList.length; i++){
-            rowSize[termList[i].col]++;
+        for(int i = 0; i < terms; i++){
+            Term<Type> temp = termList[i];
+            rowSize[temp.col]++;
         }
 
-        for(int i = 1; i < termList.length; i++){
+        for(int i = 1; i < rowStart.length; i++){
             rowStart[i] = rowStart[i-1] + rowSize[i-1];
         }
 
-        Term[] newTerms = new Term[10];
+
+        Term[] newTermList = new Term[10];
         for(int i = 0; i < terms; i++){
-            Term temp = termList[i];
-            Term newTerm = new Term(temp.row, temp.col, temp.value);  //将原坐标的行列替换完成转置
-            newTerms[rowStart[temp.col]++] = newTerm;
+            Term<Type> before = termList[i];
+            Term<Type> current = new Term<>(before.col, before.row, before.value);    //将行列互换, 进行转置操作
+            newTermList[rowStart[before.col]++] = current;
         }
-        SparseMatrix<Type> sp = new SparseMatrix<>(this.rows, this.cols);
-        sp.termList = newTerms;
-        sp.terms = this.terms;
+        SparseMatrix<Type> sp = new SparseMatrix<>(this.cols, this.rows);
+        sp.terms = terms;
+        sp.termList = newTermList;
         return sp;
     }
 
