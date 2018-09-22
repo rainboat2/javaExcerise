@@ -1,12 +1,14 @@
 package excerise;
 
+import java.util.ArrayList;
+
 public class Test<Type> {
 
-    private class T<Type>{
-        Type t;
+    public static void main(String[] args){
+        ArrayList<Integer> t = new ArrayList<>();
+
+        t.add(0, 0);
+
     }
 
-    public void test(){
-        T[] a = new T[2];
-    }
 }
