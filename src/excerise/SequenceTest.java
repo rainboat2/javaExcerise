@@ -1,9 +1,6 @@
 package excerise;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 import java.io.*;
 
 public class SequenceTest {
@@ -12,8 +9,9 @@ public class SequenceTest {
 
     public static void main(String[] args){
         for(int i = 1; i <=3; i++){
-            normalTest(new File("普通测试_" + i + ".txt"));
+            //normalTest(new File("普通测试_" + i + ".txt"));
         }
+        bigDataTest(new File("bigDataTest.txt"));
     }
 
     public static void normalTest(File file){
@@ -103,5 +101,34 @@ public class SequenceTest {
         writer.close();
     }
 
-
+    public static void bigDataTest(File file) {
+        SequenceList<String> list = new SequenceList<>();
+        PrintWriter writer = null;
+        BufferedReader reader = null;
+        try {
+            FileReader in = new FileReader(new File("bigData.txt"));
+            FileOutputStream out = new FileOutputStream(file);
+            writer = new PrintWriter(out);
+            reader = new BufferedReader(in);
+            String line = null;
+            while((line = reader.readLine()) != null){
+                String[] a = line.split("[,.;!-\" ]");
+                list.addAll(Arrays.asList(a));
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        writer.println("将文本文件中的单词取出并放在list中，统计单词数量");
+        boolean flag = true;
+        while(flag){
+            flag = list.remove("");          //删除标点符号与空格之间的空白字符（无字符）
+        }
+        //删除所有的数字
+        list.removeAll(Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9"));
+        writer.printf("单词数量为%s\n", list.size());
+        writer.flush();
+        writer.close();
+    }
 }

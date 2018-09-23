@@ -234,8 +234,13 @@ public class SequenceList<Type> implements Cloneable, Iterable<Type>, Collection
     @Override
     public boolean remove(Object o) {
         int index = indexOf(o);
-        if (index != -1) remove(index);
-        return true;
+        if (index != -1) {
+            remove(index);
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
     @Override
