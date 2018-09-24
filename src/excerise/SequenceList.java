@@ -36,7 +36,6 @@ public class SequenceList<Type> implements Cloneable, Iterable<Type>, Collection
             array[index++] = item;                     //将空缺部分填补
         }
         size += N;
-        //TODO: 重点测试
         return true;
     }
 
