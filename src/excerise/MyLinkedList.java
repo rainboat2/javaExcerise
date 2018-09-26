@@ -57,22 +57,20 @@ public class MyLinkedList<Type> implements List<Type>, Cloneable {
 
     private class MyIterator implements Iterator<Type>{
 
-        private Node<Type> current = head;
+        private Node<Type> current = head.next;
         private int mod = modTimes;
-        private int index;
 
         @Override
         public boolean hasNext() {
             if (modTimes != mod)
                 throw new ConcurrentModificationException();
-            return index < size;
+            return current != tail;
         }
 
         @Override
         public Type next() {
             if (!hasNext())
                 throw new NoSuchElementException();
-            index++;
             Type value = current.element;
             current = current.next;
             return value;
@@ -163,8 +161,8 @@ public class MyLinkedList<Type> implements List<Type>, Cloneable {
         Iterator it = c.iterator();
         while (it.hasNext()){
             Node<Type> newNode = new Node<>((Type)it.next(), tail, tail.pre);
+            newNode.pre.next = newNode;
             tail.pre = newNode;
-            //TODO:构造链表失败，新的元素没能成功添加
         }
 
         //开始插入整个链表
@@ -309,10 +307,10 @@ public class MyLinkedList<Type> implements List<Type>, Cloneable {
         private int mod = MyLinkedList.this.modTimes;
         private int index;
 
-        public MyListIterator() {current = head; }
+        public MyListIterator() {current = head.next; }
 
         public MyListIterator(int index) {
-            if (index < 0 || index >= size)
+            if (index < 0 || index > size)
                 throw new IndexOutOfBoundsException();
             current = getNode(index);
             this.index = index;
@@ -322,7 +320,7 @@ public class MyLinkedList<Type> implements List<Type>, Cloneable {
         public boolean hasNext() {
             if (modTimes != mod)
                 throw new ConcurrentModificationException();
-            return index != size;
+            return index < size;
         }
 
         @Override
