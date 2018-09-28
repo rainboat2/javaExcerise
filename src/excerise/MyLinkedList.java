@@ -72,6 +72,7 @@ public class MyLinkedList<Type> implements List<Type>, Cloneable {
             if (!hasNext())
                 throw new NoSuchElementException();
             Type value = current.element;
+            mod++;
             current = current.next;
             return value;
         }
@@ -363,6 +364,7 @@ public class MyLinkedList<Type> implements List<Type>, Cloneable {
         @Override
         public void remove() {
             current = current.pre;
+            mod++;
             MyLinkedList.this.remove(this.index--);
         }
 
@@ -370,6 +372,7 @@ public class MyLinkedList<Type> implements List<Type>, Cloneable {
         public void set(Type type) {
             if (modTimes != mod)
                 throw new ConcurrentModificationException();
+            mod++;
             current.element = type;
         }
 
@@ -377,6 +380,7 @@ public class MyLinkedList<Type> implements List<Type>, Cloneable {
         public void add(Type type) {
             if (modTimes != mod)
                 throw new ConcurrentModificationException();
+            mod++;
             MyLinkedList.this.add(index, type);
         }
     }
