@@ -102,13 +102,13 @@ public class SequenceTest {
     public static void bigDataTest(File file) {
         MyLinkedList<String> list = new MyLinkedList<>();
         PrintWriter writer = null;
-        BufferedReader reader = null;
+        BufferedReader reader;
         try {
             FileReader in = new FileReader(new File("bigData.txt"));
             FileOutputStream out = new FileOutputStream(file);
             writer  = new PrintWriter(out);
             reader = new BufferedReader(in);
-            String line = null;
+            String line;
             while((line = reader.readLine()) != null){
                 String[] a = line.split("[,.;!-\" ]");
                 list.addAll(Arrays.asList(a));
@@ -121,7 +121,7 @@ public class SequenceTest {
         writer.println("将文本文件中的单词取出并放在list中，统计单词数量");
         boolean flag = true;
         while(flag){
-            flag = list.remove("");          //删除标点符号与空格之间的空白字符（无字符）
+            flag = list.remove("");//删除标点符号与空格之间的空白字符（无字符）
         }
         //删除所有的数字
         list.removeAll(Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9"));

@@ -96,7 +96,13 @@ public class MyLinkedList<Type> implements List<Type>, Cloneable {
 
     @Override
     public <T> T[] toArray(T[] a) {
-        a = (T[]) toArray();
+        Object[] array = toArray();
+        if (a.length < size)
+            a = (T[]) array;
+        else{
+            for (int i = 0; i < size; i++)
+                a[i] = (T) array[i];
+        }
         return a;
     }
 
@@ -127,17 +133,6 @@ public class MyLinkedList<Type> implements List<Type>, Cloneable {
                 return false;
         }
         return true;
-    }
-
-    public static void main(String[] args){
-        MyLinkedList<Integer> list = new MyLinkedList<>();
-        for (int i = 0; i < 39; i++) list.add(i);
-
-        MyLinkedList<Integer> temp = new MyLinkedList<>();
-        for (int i =90; i < 130; i++) temp.add(i);
-
-        list.addAll(temp);
-        System.out.println(list);
     }
 
     @Override
@@ -406,6 +401,7 @@ public class MyLinkedList<Type> implements List<Type>, Cloneable {
         return list;
     }
 
+    @Override
     public String toString(){
         String s = "";
         for (Node<Type> temp = head.next; temp != tail; temp = temp.next){
@@ -414,6 +410,7 @@ public class MyLinkedList<Type> implements List<Type>, Cloneable {
         return s;
     }
 
+    @Override
     public MyLinkedList<Type> clone(){
         try {
             super.clone();
