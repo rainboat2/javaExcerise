@@ -52,8 +52,8 @@ public class PostorderExpression {
             }
         }
 
-        if (stack.isEmpty())   return true;
-        else                   return false;
+        if (stack.isEmpty()) return true;
+        else                 return false;
     }
 
     public static String convert(String expression){
