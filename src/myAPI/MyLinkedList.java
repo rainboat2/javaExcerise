@@ -1,4 +1,4 @@
-package excerise;
+package myAPI;
 
 import java.util.*;
 
@@ -72,9 +72,13 @@ public class MyLinkedList<Type> implements List<Type>, Cloneable {
             if (!hasNext())
                 throw new NoSuchElementException();
             Type value = current.element;
-            mod++;
             current = current.next;
             return value;
+        }
+
+        public void remove(){
+            MyLinkedList.this.remove(current);
+            mod++;
         }
     }
 

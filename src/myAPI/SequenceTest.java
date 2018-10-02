@@ -1,4 +1,4 @@
-package excerise;
+package myAPI;
 
 import java.util.*;
 import java.io.*;

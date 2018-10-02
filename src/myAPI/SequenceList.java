@@ -1,8 +1,8 @@
-package excerise;
+package myAPI;
 
 import java.util.*;
 
-public class SequenceList<Type> implements Cloneable, Iterable<Type>, Collection<Type>, List<Type> {
+public class SequenceList<Type> implements Cloneable, List<Type> {
 
     private static final int BASE_CAPACITY = 10;
     private Type[] array;

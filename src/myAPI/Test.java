@@ -1,8 +1,5 @@
-package excerise;
+package myAPI;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
 import java.util.*;
 
 public class Test<Type> {

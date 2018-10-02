@@ -1,2 +1,2 @@
 # javaExcerise
-just a noob's excerise
+just a noob's myAPI

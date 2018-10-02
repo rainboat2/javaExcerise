@@ -1,4 +1,4 @@
-package excerise;
+package myAPI;
 
 public class SparseMatrix<Type> {
 
