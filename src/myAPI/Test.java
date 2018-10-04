@@ -2,15 +2,13 @@ package myAPI;
 
 import java.util.*;
 
-public class Test<Type> {
+public class Test {
 
     public static void main(String[] args){
-        LinkedList<Integer> list = new LinkedList<>();
-        for(int i = 0; i < 15; i++)
-            list.add(i);
-        ListIterator<Integer> it = list.listIterator();
-        System.out.println(it.previousIndex());
-        System.out.println(it.nextIndex());
+        long a = 9;
+        long b = 9999999991L;
+        System.out.println((a + b)%10);
+        System.out.println(Integer.MAX_VALUE);
     }
 
 }
