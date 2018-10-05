@@ -307,9 +307,9 @@ public class MyLinkedList<Type> implements List<Type>, Cloneable {
         private int mod = MyLinkedList.this.modTimes;
         private int index;
 
-        public MyListIterator() {current = head.next; }
+        private MyListIterator() {current = head.next; }
 
-        public MyListIterator(int index) {
+        private MyListIterator(int index) {
             if (index < 0 || index > size)
                 throw new IndexOutOfBoundsException();
             current = getNode(index);
