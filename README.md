@@ -1,2 +1,2 @@
-# javaExcerise
-just a noob's myAPI
+# javaExercise
+some exercise to learn java, data struct and algorithms
