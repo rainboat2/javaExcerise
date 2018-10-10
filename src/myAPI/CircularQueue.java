@@ -35,7 +35,7 @@ public class CircularQueue<Type> {
 
     public void enQueue(Type element){
         if (isFull())
-            throw new NoSuchElementException();
+            throw new OutOfMemoryError();
         array[rear] = element;
         rear = (rear + 1) % array.length;
     }
