@@ -6,15 +6,11 @@ public class NodeQueue<Type> {
 
     public static void main(String[] args){
         NodeQueue<Integer> queue = new NodeQueue<>();
-        for (int i = 0; i < 9; i++)
-            queue.enQueue(i);
-        System.out.println(queue);
-        for (int i = 0; i < 5; i++)
-            queue.deQueue();
-        System.out.println(queue);
-        for (int i = 0 ; i < 5; i++)
-            queue.enQueue(i);
-        System.out.println(queue);
+        queue.enQueue(1);
+        queue.deQueue();
+        queue.enQueue(2);
+        queue.enQueue(3);
+        queue.deQueue();
     }
 
     private Node<Type> first;
@@ -34,6 +30,7 @@ public class NodeQueue<Type> {
     public void    clear()    { first = rear = new Node<>(null, null);}
     public boolean isEmpty()  { return first == rear;}
 
+
     public void enQueue(Type element){
         rear.next = new Node<>(element, null);
         rear = rear.next;
@@ -42,9 +39,8 @@ public class NodeQueue<Type> {
     public Type deQueue(){
         if (isEmpty())
             throw new NoSuchElementException();
-        Type element = first.next.element;
-        first.next = first.next.next;
-        return element;
+        first = first.next;
+        return first.element;
     }
 
     public String toString(){
