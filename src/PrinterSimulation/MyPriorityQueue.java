@@ -11,7 +11,7 @@ public class MyPriorityQueue<Type extends Comparable<Type>> {
             priorityQueue.add((int)(Math.random()*100));
         }
         System.out.println(priorityQueue);
-        for (int i = 0; i < 10; i--){
+        for (int i = 0; i < 10; i++){
             System.out.print(priorityQueue.getMax()+" ");
         }
         System.out.println();
@@ -47,7 +47,7 @@ public class MyPriorityQueue<Type extends Comparable<Type>> {
      * 具体操作：
      *     当该节点优先级大于其父节点，则将其与父节点交换
      *     否则结束操作
-     * @param index
+     * @param i
      */
     private void swim(int i){
         int j = i/2;    //j为i的父节点
@@ -68,14 +68,13 @@ public class MyPriorityQueue<Type extends Comparable<Type>> {
      * @param i
      */
     private void sink(int i){
-        int j = i*2;  //j为i的左子节点
-        while (j < size){
-            if (j+1 < size && array[j].compareTo(array[j+1]) > 0) j++;
+        while (i*2 < size){
+            int j = i*2;    //j为i的左子节点
+            if (j+1 < size && array[j].compareTo(array[j+1]) < 0)   j++;   //将j设为两个子节点中最小的一个
             int cmp = array[i].compareTo(array[j]);
-            if (cmp >= 0)   break;
+            if (cmp >= 0)  break;
             exchange(i, j);
-            i = j;
-            j = i/2;
+            i = j;     //将当前节点下移到其子节点
         }
     }
 
