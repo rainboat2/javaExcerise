@@ -45,4 +45,10 @@ public class MyQueue<Type> {
         first = first.next;
         return first.value;
     }
+
+    public Type peek(){
+        if (isEmpty())
+            throw new NoSuchElementException();
+        return first.value;
+    }
 }
