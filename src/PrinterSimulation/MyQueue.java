@@ -2,15 +2,19 @@ package PrinterSimulation;
 
 import java.util.NoSuchElementException;
 
-public class MyQueue<Type> {
+public class MyQueue<Type>{
 
     public static void main(String[] args){
         MyQueue<Integer> queue = new MyQueue<>();
-        queue.enQueue(1);
-        queue.deQueue();
-        queue.enQueue(2);
-        queue.enQueue(3);
-        queue.deQueue();
+        for (int j = 0; j < 6; j++){
+            for (int i = 0; i < 10; i++)
+                queue.enQueue(i);
+            for (int i = 0; i < 10; i++)
+                System.out.print(queue.deQueue());
+            System.out.println();
+            System.out.println(queue.isEmpty());
+        }
+
     }
 
     private Node first;
@@ -26,7 +30,7 @@ public class MyQueue<Type> {
     }
 
     public MyQueue()         { clear();}
-    public boolean isEmpty() { return first == null;}
+    public boolean isEmpty() { return first == last;}
 
 
     public void clear(){
@@ -49,6 +53,13 @@ public class MyQueue<Type> {
     public Type peek(){
         if (isEmpty())
             throw new NoSuchElementException();
-        return first.value;
+        return first.next.value;
+    }
+
+    public String toString(){
+        StringBuilder builder = new StringBuilder();
+        for (Node temp = first.next; temp != null; temp = temp.next)
+            builder.append(temp);
+        return builder.toString();
     }
 }

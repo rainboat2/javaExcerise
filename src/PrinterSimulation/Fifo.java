@@ -21,11 +21,11 @@ public class Fifo extends Simulator{
         this.toDOList = new MyQueue<>();
         this.waitTimes = new ArrayList<>();
         this.result = new ArrayList<>();
-        result.add("FIFO Simulator\n");
+        result.add("FIFO Simulation \n");
         super.workLoad.clear();
     }
 
-    /**
+    /*
      * 每秒钟需要做的事情
      * 1. 处理请求(维护一个进度条，表示当前任务处理进度，处理结束则弹出进行下一个）
      * 2. 检查是否有新的请求,若有，则添加到队列中
@@ -34,27 +34,36 @@ public class Fifo extends Simulator{
     public void simulator(String workPath){
         init();
         loadWork(workPath);
-        while(!workLoad.isEmpty() && current_event != null){
+        while(!workLoad.isEmpty() || current_event != null){
             current_time++;
-            solveRequest();
             checkArrival();
+            solveRequest();
         }
         result.add(latency());
         outputResult();
     }
 
+    /*
+     * 1. 若当前没有工作，尝试添加一个任务
+     * 2. 若当前工作结束，尝试移到下一个任务
+     * 3. 如果有工作，执行当前工作
+     */
     private void solveRequest(){
+        // 查看是否需要执行添加任务的操作
         if       (!hasJob())       tryToGetNextWork();
         else if  (isFinished())    moveToNextWork();
-        else                       doJob();
+        // 执行任务
+        if (hasJob())  doJob();
     }
 
     private void checkArrival(){
-        if (workLoad.peek().getArrival_time() != current_time) return;
-        Event event = workLoad.deQueue();
-        result.add(String.format("/tArrival: %s pages come from %s at %s seconds",
-                event.getJob().getNumber_of_pages(), event.getJob().getUser(), event.getArrival_time()));
-        toDOList.enQueue(event);
+        // 当同时有多个请求到来的时候通过循环获得所有的请求
+        while (!workLoad.isEmpty() && workLoad.peek().getArrival_time() == current_time){
+            Event event = workLoad.deQueue();
+            result.add(String.format("\tArrival: %s pages come from %s at %s seconds",
+                    event.getJob().getNumber_of_pages(), event.getJob().getUser(), event.getArrival_time()));
+            toDOList.enQueue(event);
+        }
     }
 
     private void    doJob() { progress_bar++;}
@@ -79,10 +88,10 @@ public class Fifo extends Simulator{
         if (toDOList.isEmpty()) return;
         current_event = toDOList.deQueue();
         result.add(
-                String.format("Servicing: %d pages from %s at %d seconds",
+                String.format("\tServicing: %d pages from %s at %d seconds",
                 current_event.getJob().getNumber_of_pages(),
                 current_event.getJob().getUser(),
-                current_event.getArrival_time()));
+                current_time));
     }
 
     /*
@@ -100,8 +109,8 @@ public class Fifo extends Simulator{
         int total_jobs = waitTimes.size();
         int aggregate_latency = 0;
         for (int time : waitTimes)  aggregate_latency += time;
-        int mean_latency = aggregate_latency / total_jobs;
-        return String.format("\ttotal_jobs: %d\n\tAggregate latency:%d\n\tMean latency:%d",
+        double mean_latency = (double)aggregate_latency / (double)total_jobs;
+        return String.format("\n\ttotal_jobs: %d\n\tAggregate latency:%d\n\tMean latency:%f",
                 total_jobs, aggregate_latency, mean_latency);
     }
 
@@ -122,6 +131,7 @@ class Test{
 
     public static void main(String[] args){
         Fifo fifo = new Fifo();
-        fifo.simulator("myFile/Experiment 1/arbitrary.out");
+        fifo.simulator("myFile/Experiment 1/arbitrary.run");
+        fifo.simulator("myFile/Experiment 1/bigfirst.run");
     }
 }
