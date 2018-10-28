@@ -9,63 +9,44 @@ public class Fifo extends Simulator{
 
     private int progress_bar;
     private int current_time;
-    private MyQueue<Event> works;
+    private Event current_event;
+    private MyQueue<Event> toDOList;
     private ArrayList<Integer> waitTimes;
     private ArrayList<String>  result;
 
     private void init(){
         this.progress_bar = 0;
         this.current_time = 0;
-        this.works = new MyQueue<>();
+        this.current_event = null;
+        this.toDOList = new MyQueue<>();
         this.waitTimes = new ArrayList<>();
         this.result = new ArrayList<>();
-        result.add("FIFO Simulator");
+        result.add("FIFO Simulator\n");
         super.workLoad.clear();
     }
 
     /**
      * 每秒钟需要做的事情
-     * 1. 处理当前请求(维护一个进度条，表示队列最顶上元素的处理进度，处理结束则弹出进行下一个）
+     * 1. 处理请求(维护一个进度条，表示当前任务处理进度，处理结束则弹出进行下一个）
      * 2. 检查是否有新的请求,若有，则添加到队列中
      *
-     * 关于如何计算等待时间：
-     * 每个Event带有arrive_time和页数, 可计算solve_time = pages * seconds_per_page
-     * wait_time = end_time - arrive_time - solve_time
      */
     public void simulator(String workPath){
         init();
         loadWork(workPath);
-        while(!workLoad.isEmpty()){
+        while(!workLoad.isEmpty() && current_event != null){
             current_time++;
-            if (hasJob()){
-                doJob();
-                if (isFinished()) moveToNextWork();
-            }
+            solveRequest();
             checkArrival();
         }
         result.add(latency());
         outputResult();
     }
 
-    private void    doJob() { progress_bar++;}
-    private boolean hasJob(){ return !works.isEmpty();}
-    private boolean isFinished(){
-        Event current_event = works.peek();
-        int total_process = current_event.getJob().getNumber_of_pages() * seconds_per_page;
-        return progress_bar == total_process;
-    }
-
-    private void moveToNextWork(){
-        this.progress_bar = 0;
-        Event current_event = works.deQueue();
-        waitTimes.add(countWaitTime(current_event));
-        result.add("/tArriving: %d pages from %s ")
-    }
-
-    private int countWaitTime(Event event){
-        int solve_time = event.getJob().getNumber_of_pages() * seconds_per_page;
-        int wait_time = this.current_time - event.getArrival_time() - solve_time;
-        return wait_time;
+    private void solveRequest(){
+        if       (!hasJob())       tryToGetNextWork();
+        else if  (isFinished())    moveToNextWork();
+        else                       doJob();
     }
 
     private void checkArrival(){
@@ -73,7 +54,46 @@ public class Fifo extends Simulator{
         Event event = workLoad.deQueue();
         result.add(String.format("/tArrival: %s pages come from %s at %s seconds",
                 event.getJob().getNumber_of_pages(), event.getJob().getUser(), event.getArrival_time()));
-        works.enQueue(event);
+        toDOList.enQueue(event);
+    }
+
+    private void    doJob() { progress_bar++;}
+    private boolean hasJob(){ return current_event != null;}
+    private boolean isFinished(){
+        int total_process = current_event.getJob().getNumber_of_pages() * seconds_per_page;
+        return progress_bar == total_process;
+    }
+
+    private void moveToNextWork(){
+        endCurrentWork();
+        tryToGetNextWork();
+    }
+
+    private void endCurrentWork(){
+        this.progress_bar = 0;
+        waitTimes.add(countWaitTime(current_event));
+        current_event = null;
+    }
+
+    private void tryToGetNextWork(){
+        if (toDOList.isEmpty()) return;
+        current_event = toDOList.deQueue();
+        result.add(
+                String.format("Servicing: %d pages from %s at %d seconds",
+                current_event.getJob().getNumber_of_pages(),
+                current_event.getJob().getUser(),
+                current_event.getArrival_time()));
+    }
+
+    /*
+     关于如何计算等待时间：
+        每个Event带有arrive_time和页数, 可计算solve_time = pages * seconds_per_page
+        wait_time = end_time - arrive_time - solve_time
+     */
+    private int countWaitTime(Event event){
+        int solve_time = event.getJob().getNumber_of_pages() * seconds_per_page;
+        int wait_time = this.current_time - event.getArrival_time() - solve_time;
+        return wait_time;
     }
 
     private String latency(){
@@ -85,7 +105,7 @@ public class Fifo extends Simulator{
                 total_jobs, aggregate_latency, mean_latency);
     }
 
-    private String outputResult(){
+    private void outputResult(){
         File file = new File("result.out");
         try {
             PrintWriter out = new PrintWriter(file);
@@ -95,5 +115,13 @@ public class Fifo extends Simulator{
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+}
+
+class Test{
+
+    public static void main(String[] args){
+        Fifo fifo = new Fifo();
+        fifo.simulator("myFile/Experiment 1/arbitrary.out");
     }
 }
