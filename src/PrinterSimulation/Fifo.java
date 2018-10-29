@@ -39,7 +39,7 @@ public class Fifo extends Simulator{
             checkArrival();
             solveRequest();
         }
-        result.add(latency());
+        result.add(analyzeWaitTimes());
         outputResult();
     }
 
@@ -105,12 +105,12 @@ public class Fifo extends Simulator{
         return wait_time;
     }
 
-    private String latency(){
+    private String analyzeWaitTimes(){
         int total_jobs = waitTimes.size();
         int aggregate_latency = 0;
         for (int time : waitTimes)  aggregate_latency += time;
         double mean_latency = (double)aggregate_latency / (double)total_jobs;
-        return String.format("\n\ttotal_jobs: %d\n\tAggregate latency:%d\n\tMean latency:%f",
+        return String.format("\n\ttotal_jobs: %d\n\tAggregate analyzeWaitTimes:%d\n\tMean analyzeWaitTimes:%.3f",
                 total_jobs, aggregate_latency, mean_latency);
     }
 
