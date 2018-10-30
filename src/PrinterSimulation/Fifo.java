@@ -50,7 +50,7 @@ public class Fifo extends Simulator{
      */
     private void solveRequest(){
         // 查看是否需要执行添加任务的操作
-        if       (!hasJob())       tryToGetNextWork();
+        if       (!hasJob())       tryToGetWork();
         else if  (isFinished())    moveToNextWork();
         // 执行任务
         if (hasJob())  doJob();
@@ -75,7 +75,7 @@ public class Fifo extends Simulator{
 
     private void moveToNextWork(){
         endCurrentWork();
-        tryToGetNextWork();
+        tryToGetWork();
     }
 
     private void endCurrentWork(){
@@ -84,7 +84,7 @@ public class Fifo extends Simulator{
         current_event = null;
     }
 
-    private void tryToGetNextWork(){
+    private void tryToGetWork(){
         if (toDOList.isEmpty()) return;
         current_event = toDOList.deQueue();
         result.add(

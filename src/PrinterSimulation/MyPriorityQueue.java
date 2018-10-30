@@ -3,19 +3,21 @@ package PrinterSimulation;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
-public class MyPriorityQueue<Type extends Comparable<Type>> {
+public class MyPriorityQueue<Type extends Comparable<Type>>{
 
     public static void main(String[] args){
         MyPriorityQueue<Integer> priorityQueue = new MyPriorityQueue<>();
-        for (int i = 0; i < 20; i++){
-            priorityQueue.add((int)(Math.random()*100));
+        for (int j = 0; j < 3; j++){
+            for (int i = 0; i < 20; i++){
+                priorityQueue.add((int)(Math.random()*100));
+            }
+            System.out.println(priorityQueue);
+            for (int i = 0; i < 20; i++){
+                System.out.print(priorityQueue.getMax()+" ");
+            }
+            System.out.println();
+            System.out.println(priorityQueue);
         }
-        System.out.println(priorityQueue);
-        for (int i = 0; i < 10; i++){
-            System.out.print(priorityQueue.getMax()+" ");
-        }
-        System.out.println();
-        System.out.println(priorityQueue);
     }
 
     /*
@@ -25,12 +27,13 @@ public class MyPriorityQueue<Type extends Comparable<Type>> {
      * 2. i的左子节点： i*2
      * 3. i的右子节点： i*2+1
      * 4. i的优先级必然大于或等于其两个子节点
+     * size 表示队列中元素的个数，由于此队列第一个为空，故size可以当作最后一个元素的索引
      */
     private Type[] array;
     private int size;
 
     public MyPriorityQueue()         { this(10);}
-    public boolean isEmpty()         { return size == 1;}
+    public boolean isEmpty()         { return size == 0;}
 
     public MyPriorityQueue(int size) {
         array = (Type[]) new Comparable[size+1];
@@ -42,30 +45,25 @@ public class MyPriorityQueue<Type extends Comparable<Type>> {
         array = temp;
     }
 
-    /**
+    /*
      * 给定一个节点，对该节点进行上浮的操作
      * 具体操作：
      *     当该节点优先级大于其父节点，则将其与父节点交换
      *     否则结束操作
-     * @param i
      */
     private void swim(int i){
-        int j = i/2;    //j为i的父节点
-        while (j > 0){
-            int cmp = array[i].compareTo(array[j]);
-            if (cmp <= 0)  break;
+        while (i/2 > 0){
+            int j = i/2;
+            if (array[i].compareTo(array[j]) <= 0) break;
             exchange(i, j);
             i = j;
-            j = i/2;
         }
-
     }
 
-    /**
+    /*
      * 给定一个节点，对其进行下沉的操作
      * 当当前节点的优先级大于其两个子节点，结束
      * 否则与两个子节点中最大的进行交换
-     * @param i
      */
     private void sink(int i){
         while (i*2 < size){
@@ -82,7 +80,7 @@ public class MyPriorityQueue<Type extends Comparable<Type>> {
         if (isEmpty())
             throw new NoSuchElementException();
         Type max = array[1];
-        exchange(1, size-1);
+        exchange(1, size);
         array[size--] = null;
         sink(1);
         return max;
