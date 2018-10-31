@@ -1,17 +1,18 @@
 package myAPI;
 
+import java.util.Random;
+import java.util.Stack;
+
 class QueueTest{
     public static void main(String[] args){
         BinarySearchTree<Integer, Integer> tree = new BinarySearchTree<>();
+        Random random = new Random(23);
         for (int i = 0; i < 20; i++){
-            int a = (int)(Math.random()*50);
+            int a = random.nextInt(50);
             tree.put(a, a);
         }
         System.out.println(tree.inOrder());
-        System.out.println(tree.size());
-        System.out.println(tree.select(0));
-        System.out.println(tree.select(18));
-
+        System.out.println(tree.celling(49));
     }
 }
 
@@ -80,12 +81,12 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
         return max(node.right);
     }
 
-    public Node min(){
+    public Key min(){
 //        Node currentNode = root;
 //        while (currentNode.left != null)
 //            currentNode = currentNode.left;
 //        return currentNode;
-        min(root);
+        return min(root).key;
     }
 
     private Node min(Node node){
@@ -119,18 +120,18 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
 
     // 查找大于key的最小值
     public Key celling(Key key){
-        // TODO: 非递归的celling函数在部分情况无法获得正确的值
         Node cur = root;
+        Key result = null;
         while (cur != null){
             int cmp = cur.key.compareTo(key);
             if       (cmp == 0)     return cur.key;
             else if  (cmp < 0)      cur = cur.right;
             else{
-               if (cur.left != null && cur.left.key.compareTo(key) >= 0)  cur = cur.left;
-               else                                                       return cur.key;
+               result = cur.key;
+               cur = cur.left;
             }
         }
-        return null;
+        return result;
     }
 
     public Key select(int rank){
@@ -190,14 +191,17 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
 
     public String inOrder(){
         StringBuilder builder = new StringBuilder();
-        inOrder(root, builder);
+        Stack<Node> stack = new Stack<>();
+        Node cur = root;
+        while (cur != null || !stack.isEmpty()){
+            while (cur != null){
+                stack.push(cur);
+                cur = cur.left;
+            }
+            cur = stack.pop();
+            builder.append(cur.value).append(" ");
+            cur = cur.right;
+        }
         return builder.toString();
-    }
-
-    private void inOrder(Node node, StringBuilder builder){
-        if (node == null)  return;
-        inOrder(node.left, builder);
-        builder.append(node.value + " ");
-        inOrder(node.right, builder);
     }
 }
