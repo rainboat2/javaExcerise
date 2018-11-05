@@ -1,2 +1,2 @@
 # javaExercise
-some exercise to learn java, data struct and algorithms
+some exercises to learn java, data struct and algorithms

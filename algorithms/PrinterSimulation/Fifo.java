@@ -12,7 +12,7 @@ public class Fifo extends Simulator{
     private Event current_event;
     private MyQueue<Event> toDOList;
     private ArrayList<Integer> waitTimes;
-    private ArrayList<String>  result;
+    private ArrayList<String> logs;
 
     private void init(){
         this.progress_bar = 0;
@@ -20,17 +20,11 @@ public class Fifo extends Simulator{
         this.current_event = null;
         this.toDOList = new MyQueue<>();
         this.waitTimes = new ArrayList<>();
-        this.result = new ArrayList<>();
-        result.add("FIFO Simulation \n");
+        this.logs = new ArrayList<>();
+        logs.add("FIFO Simulation \n");
         super.workLoad.clear();
     }
 
-    /*
-     * 每秒钟需要做的事情
-     * 1. 处理请求(维护一个进度条，表示当前任务处理进度，处理结束则弹出进行下一个）
-     * 2. 检查是否有新的请求,若有，则添加到队列中
-     *
-     */
     public void simulator(String workPath){
         init();
         loadWork(workPath);
@@ -39,7 +33,7 @@ public class Fifo extends Simulator{
             checkArrival();
             solveRequest();
         }
-        result.add(analyzeWaitTimes());
+        logs.add(analyzeWaitTimes());
         outputResult();
     }
 
@@ -60,7 +54,7 @@ public class Fifo extends Simulator{
         // 当同时有多个请求到来的时候通过循环获得所有的请求
         while (!workLoad.isEmpty() && workLoad.peek().getArrival_time() == current_time){
             Event event = workLoad.deQueue();
-            result.add(String.format("\tArrival: %s pages come from %s at %s seconds",
+            logs.add(String.format("\tArrival: %s pages come from %s at %s seconds",
                     event.getJob().getNumber_of_pages(), event.getJob().getUser(), event.getArrival_time()));
             toDOList.enQueue(event);
         }
@@ -87,7 +81,7 @@ public class Fifo extends Simulator{
     private void tryToGetWork(){
         if (toDOList.isEmpty()) return;
         current_event = toDOList.deQueue();
-        result.add(
+        logs.add(
                 String.format("\tServicing: %d pages from %s at %d seconds",
                 current_event.getJob().getNumber_of_pages(),
                 current_event.getJob().getUser(),
@@ -115,10 +109,10 @@ public class Fifo extends Simulator{
     }
 
     private void outputResult(){
-        File file = new File("result.out");
+        File file = new File("logs.out");
         try {
             PrintWriter out = new PrintWriter(file);
-            for (String line : result)
+            for (String line : logs)
                 out.println(line);
             out.close();
         } catch (FileNotFoundException e) {

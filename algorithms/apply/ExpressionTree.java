@@ -1,6 +1,5 @@
 package apply;
 
-import myAPI.CircularQueue;
 import myAPI.NodeQueue;
 
 import java.util.*;
