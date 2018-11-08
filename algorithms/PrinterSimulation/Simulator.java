@@ -34,6 +34,6 @@ public class Simulator {
         int pages = Integer.parseInt(info[1]);
         String user = info[2];
         Event event = new Event(new Job(user, pages), arrive_time);
-        workLoad.enQueue(event);
+        workLoad.add(event);
     }
 }

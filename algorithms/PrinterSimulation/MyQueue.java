@@ -1,24 +1,15 @@
 package PrinterSimulation;
 
+
+import java.util.AbstractQueue;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class MyQueue<Type>{
-
-    public static void main(String[] args){
-        MyQueue<Integer> queue = new MyQueue<>();
-        for (int j = 0; j < 6; j++){
-            for (int i = 0; i < 10; i++)
-                queue.enQueue(i);
-            for (int i = 0; i < 10; i++)
-                System.out.print(queue.deQueue());
-            System.out.println();
-            System.out.println(queue.isEmpty());
-        }
-
-    }
+public class MyQueue<Type> extends AbstractQueue<Type> {
 
     private Node first;
     private Node last;
+    int size;
 
     private class Node{
         Type value;
@@ -30,24 +21,49 @@ public class MyQueue<Type>{
     }
 
     public MyQueue()         { clear();}
+
+    public Iterator<Type> iterator() {
+        return null;
+    }
+
+    public int size() {
+        return size;
+    }
+
     public boolean isEmpty() { return first == last;}
 
 
     public void clear(){
         first = last = new Node(null);
         first.next = last;
+        size = 0;
     }
 
-    public void enQueue(Type value){
-        last.next = new Node(value);
+    public boolean add(Type type) {
+        last.next = new Node(type);
         last = last.next;
+        size++;
+        return true;
     }
 
-    public Type deQueue(){
+    public boolean offer(Type type) {
+        return add(type);
+    }
+
+    public Type remove() {
+        return null;
+    }
+
+    public Type poll() {
         if (isEmpty())
             throw new NoSuchElementException();
         first = first.next;
+        size--;
         return first.value;
+    }
+
+    public Type element() {
+        return null;
     }
 
     public Type peek(){

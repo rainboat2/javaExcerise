@@ -1,9 +1,11 @@
-package myAPI;
+package PrinterSimulation;
 
+import java.util.AbstractQueue;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class MyPriorityQueue<Type extends Comparable<Type>>{
+public class MyPriorityQueue<Type extends Comparable<Type>> extends AbstractQueue<Type> {
 
     public static void main(String[] args){
         MyPriorityQueue<Integer> priorityQueue = new MyPriorityQueue<>();
@@ -13,7 +15,7 @@ public class MyPriorityQueue<Type extends Comparable<Type>>{
             }
             System.out.println(priorityQueue);
             for (int i = 0; i < 20; i++){
-                System.out.print(priorityQueue.getMax()+" ");
+                System.out.print(priorityQueue.poll()+" ");
             }
             System.out.println();
             System.out.println(priorityQueue);
@@ -33,6 +35,11 @@ public class MyPriorityQueue<Type extends Comparable<Type>>{
     private int size;
 
     public MyPriorityQueue()         { this(10);}
+
+    public Iterator<Type> iterator() { return null; }
+
+    public int size() { return size; }
+
     public boolean isEmpty()         { return size == 0;}
 
     public MyPriorityQueue(int size) {
@@ -76,7 +83,15 @@ public class MyPriorityQueue<Type extends Comparable<Type>>{
         }
     }
 
-    public Type getMax(){
+    public boolean offer(Type type) {
+        return add(type);
+    }
+
+    public Type peek(){
+        return array[1];
+    }
+
+    public Type poll(){
         if (isEmpty())
             throw new NoSuchElementException();
         Type max = array[1];
@@ -86,10 +101,11 @@ public class MyPriorityQueue<Type extends Comparable<Type>>{
         return max;
     }
 
-    public void add(Type value){
+    public boolean add(Type value){
         if (array.length <= size+1) resize(array.length*2);
         array[++size] = value;
         swim(size);
+        return true;
     }
 
     private void exchange(int i, int j){
