@@ -1,25 +1,24 @@
 package PrinterSimulation;
 
-import java.util.AbstractQueue;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class MyPriorityQueue<Type extends Comparable<Type>> extends AbstractQueue<Type> {
 
     public static void main(String[] args){
         MyPriorityQueue<Integer> priorityQueue = new MyPriorityQueue<>();
-        for (int j = 0; j < 3; j++){
-            for (int i = 0; i < 20; i++){
-                priorityQueue.add((int)(Math.random()*100));
-            }
-            System.out.println(priorityQueue);
-            for (int i = 0; i < 20; i++){
-                System.out.print(priorityQueue.poll()+" ");
-            }
-            System.out.println();
-            System.out.println(priorityQueue);
+        Random random = new Random();
+        Integer[] a = new Integer[]{-14, -16, -23, -81, -19, -59};
+        priorityQueue.add(-103);
+        priorityQueue.poll();
+        System.out.println(priorityQueue.size);
+        for (int i : a){
+            priorityQueue.add(i);
+            priorityQueue.add(random.nextInt(10));
         }
+        System.out.println(priorityQueue);
+        for (int i = 0; i < a.length; i++)
+            System.out.print(priorityQueue.poll() + " ");
+        System.out.println(priorityQueue);
     }
 
     /*
@@ -69,13 +68,13 @@ public class MyPriorityQueue<Type extends Comparable<Type>> extends AbstractQueu
 
     /*
      * 给定一个节点，对其进行下沉的操作
-     * 当当前节点的优先级大于其两个子节点，结束
+     * 当前节点的优先级大于其两个子节点，结束
      * 否则与两个子节点中最大的进行交换
      */
     private void sink(int i){
-        while (i*2 < size){
+        while (i*2 <= size){
             int j = i*2;    //j为i的左子节点
-            if (j+1 < size && array[j].compareTo(array[j+1]) < 0)   j++;   //将j设为两个子节点中最小的一个
+            if (j < size && array[j].compareTo(array[j+1]) < 0)   j++;   //将j设为两个子节点中最大的一个
             int cmp = array[i].compareTo(array[j]);
             if (cmp >= 0)  break;
             exchange(i, j);

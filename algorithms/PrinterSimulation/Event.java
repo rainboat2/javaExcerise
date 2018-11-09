@@ -24,7 +24,7 @@ public class Event implements Comparable<Event> {
      * arrival_time: 先到先得，对结果有着主要的影响
      */
     public int getPriority(){
-        int a = -5 * arrival_time;
+        int a = -3 * arrival_time;
         int b = -1 * job.getNumber_of_pages();
         return a + b;
     }
@@ -32,5 +32,9 @@ public class Event implements Comparable<Event> {
     @Override
     public int compareTo(Event o) {
         return this.getPriority() - o.getPriority();
+    }
+
+    public String toString(){
+        return getPriority() + String.format("(%s, %s)", arrival_time, job.getNumber_of_pages());
     }
 }

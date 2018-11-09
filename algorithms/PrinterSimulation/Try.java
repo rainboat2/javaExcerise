@@ -9,8 +9,8 @@ import java.util.LinkedList;
 class TryTest{
     public static void main(String[] args){
         Try t = new Try();
-        t.simulator("myFile/Experiment 1/arbitrary.run", "myFile/Experiment 1/arbitrary.myOut");
-        t.simulator("myFile/Experiment 1/bigfirst.run", "myFile/Experiment 1/bigfirst.myOut", "Priority");
+        t.simulator("myFile/Experiment 1/arbitrary.run", "myFile/Experiment 1/arbitrary.myOut", 2);
+        t.simulator("myFile/Experiment 1/bigfirst.run", "myFile/Experiment 1/bigfirst.myOut", "Priority", 3);
     }
 }
 
@@ -26,6 +26,10 @@ public class Try extends Simulator{
 
     public void simulator(String workPath, String outPath, String pattern){
         simulator(workPath, outPath, pattern, 1);
+    }
+
+    public void simulator(String workPath, String outPath, int printerNumbers){
+        simulator(workPath, outPath, "FIFO", printerNumbers);
     }
 
     public void simulator(String workPath, String outPath, String pattern, int printerNumbers){
