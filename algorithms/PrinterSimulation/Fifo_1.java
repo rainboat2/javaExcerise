@@ -106,7 +106,7 @@ public class Fifo extends Simulator{
         File file = new File(outPath);
         try {
             PrintWriter out = new PrintWriter(file);
-            for (String line : logs)
+            for (String line : logs) // logs为记录打印输出的一个数组
                 out.println(line);
             out.close();
         } catch (FileNotFoundException e) {
