@@ -2,6 +2,8 @@ package PrinterSimulation;
 
 public class Event implements Comparable<Event> {
 
+    static int metrics = 0;
+
     private Job job;
     private int arrival_time;
 
@@ -24,10 +26,11 @@ public class Event implements Comparable<Event> {
      * arrival_time: 先到先得，对结果有着主要的影响
      */
     public int getPriority(){
-        int a = -3 * arrival_time;
+        int a = -metrics * arrival_time;
         int b = -1 * job.getNumber_of_pages();
-        return a + b;
+        return (a + b) / (metrics + 1);
     }
+
 
     @Override
     public int compareTo(Event o) {

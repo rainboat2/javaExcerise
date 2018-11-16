@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.util.AbstractQueue;
 import java.util.LinkedList;
 
-public class Fifo extends Simulator{
+public class Fifo_1 extends Simulator{
 
     private int progress_bar;
     private int current_time;
@@ -115,11 +115,3 @@ public class Fifo extends Simulator{
     }
 }
 
-class Test{
-
-    public static void main(String[] args){
-        Fifo fifo = new Fifo();
-        fifo.simulator("myFile/Experiment 1/arbitrary.run", "myFile/Experiment 1/arbitrary.myOut");
-        fifo.simulator("myFile/Experiment 1/bigfirst.run", "myFile/Experiment 1/bigfirst.myOut");
-    }
-}
