@@ -4,10 +4,21 @@ import java.util.LinkedList;
 
 public class Graph {
 
-    private final int V;
-    private int E;
-    private LinkedList<Integer>[] adj;
+    public static Graph getGraph(){
+        Graph g = new Graph(13);
+        int[] v = new int[] {0, 4, 0, 9, 6, 5, 0, 11, 9, 0, 7, 9, 5};
+        int[] w = new int[] {5, 3, 1, 12, 4, 4, 2, 12, 10, 6, 8, 11, 3};
+        for (int i = 0; i < v.length; i++)
+            g.addEdge(v[i], w[i]);
+        return g;
+    }
 
+    private final int V;                //顶点的数目
+    private int E;                      //边的数目
+    private LinkedList<Integer>[] adj;  //邻接表
+
+
+    @SuppressWarnings("unchecked")
     public Graph(int V){
         this.V = V;
         E = 0;

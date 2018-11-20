@@ -48,6 +48,7 @@ public class Test {
         }
 
         public void paintComponent(Graphics g) {
+            super.paintComponent(g);
             g.setColor(Color.BLUE);
             for (int i = 1; i <= array.length; i++)
                 g.fillRect(i, 0, 10,array[i]);
@@ -55,8 +56,9 @@ public class Test {
     }
 
     private void draw(int[] array){
-        frame.getContentPane().add(BorderLayout.CENTER, draw);
         frame.setSize(500, 500);
+        frame.setLayout(new BorderLayout());
+        frame.getContentPane().add(BorderLayout.CENTER, draw);
         draw.setArray(array);
         draw.paintComponent(draw.getGraphics());
         frame.setVisible(true);
