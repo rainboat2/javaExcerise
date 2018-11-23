@@ -1,6 +1,6 @@
 package apply;
 
-import myAPI.Graph;
+import graph.Graph;
 
 public class DepthFirstSearch {
 
@@ -21,7 +21,7 @@ public class DepthFirstSearch {
     private void dfs(Graph graph, int v){
         marked[v] = true;
         visit(v);
-        for (int a : graph.adj(v))
+        for (int a : graph.getAdj(v))
             if (!isMarked(a)) dfs(graph, a);
 
     }
