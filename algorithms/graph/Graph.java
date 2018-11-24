@@ -62,13 +62,14 @@ public class Graph {
             if (degree > max)
                 max = degree;
         }
+        return max;
     }
 
     public static double avgDegree(Graph G){
         return 2.0*G.E() / G.V();
     }
 
-    public static int numberOfSelfLoops(Graph G){
+    public static int numberOfSelfloops(Graph G){
         int count = 0;
         for (int v = 0; v < G.V(); v++)
             for (int w : G.getAdj(v))
