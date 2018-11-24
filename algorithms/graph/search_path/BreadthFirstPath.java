@@ -46,7 +46,7 @@ public class BreadthFirstPath implements Path {
     public Iterable<Integer> pathTo(int v) {
         if (!hasPathTo(v)) return null;
         Stack<Integer> stack = new Stack<>();
-        for (int x = v; x != s; x++)
+        for (int x = v; x != s; x = edgeTo[x])
             stack.push(x);
         return stack;
     }
