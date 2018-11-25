@@ -9,7 +9,7 @@ public class Test {
         Test t = new Test(g);
         t.searchTest(new DepthFirstSearch(g, 0));
         t.searchTest(new BreadthFirstSearch(g, 0));
-        t.pathTest(new BreadthFirstPath(g, 0));
+        t.pathTest(new BreadthFirstPath(g, 7));
         t.pathTest(new DepthFirstPath(g, 0));
     }
 
@@ -30,8 +30,8 @@ public class Test {
     public void pathTest(Path path){
         System.out.println("-------------PathTest------------");
         for (int i = 0; i < g.V(); i++){
-            System.out.printf("到节点%d的路径为：", i);
             Iterable<Integer> p = path.pathTo(i);
+            System.out.printf("节点%d到起点的路径为：", i);
             if (p == null) System.out.println("null");
             else{
                 for (int v : p)

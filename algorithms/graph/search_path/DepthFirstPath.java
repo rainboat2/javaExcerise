@@ -41,11 +41,13 @@ public class DepthFirstPath implements Path {
     }
 
 
+    @SuppressWarnings("Duplicates")
     public Iterable<Integer> pathTo(int v) {
         if (!hasPathTo(v)) return null;
         Stack<Integer> stack = new Stack<>();
         for (int x = v; x != s; x = edgeTo[x])  //不断向父节点移动，直到达到根节点
             stack.push(x);
+        stack.push(s);
         return stack;
     }
 }
