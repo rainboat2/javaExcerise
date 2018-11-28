@@ -1,4 +1,4 @@
-package graph;
+package graph.graphs;
 
 public class Edge implements Comparable<Edge> {
 

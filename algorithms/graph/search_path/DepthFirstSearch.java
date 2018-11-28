@@ -1,6 +1,6 @@
 package graph.search_path;
 
-import graph.Graph;
+import graph.graphs.Graph;
 
 public class DepthFirstSearch implements Search{
 

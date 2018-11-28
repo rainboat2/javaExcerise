@@ -1,6 +1,4 @@
-package graph.search_path;
-
-import graph.Edge;
+package graph.graphs;
 
 import java.util.LinkedList;
 
@@ -38,6 +36,6 @@ public class EdgeWeightGraph {
     }
 
     public Iterable<Edge> edges(){
-
+        return null;
     }
 }

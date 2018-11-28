@@ -1,6 +1,6 @@
 package graph.search_path;
 
-import graph.Graph;
+import graph.graphs.Graph;
 
 import java.util.Stack;
 

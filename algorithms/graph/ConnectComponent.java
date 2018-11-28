@@ -1,5 +1,7 @@
 package graph;
 
+import graph.graphs.Graph;
+
 public class ConnectComponent {
 
     int count;

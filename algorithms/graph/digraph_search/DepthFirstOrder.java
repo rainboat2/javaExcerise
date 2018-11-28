@@ -1,6 +1,6 @@
 package graph.digraph_search;
 
-import graph.Digraph;
+import graph.graphs.Digraph;
 
 import java.util.LinkedList;
 import java.util.Queue;
