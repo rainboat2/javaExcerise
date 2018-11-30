@@ -1,4 +1,4 @@
-package graph;
+package graph.other;
 
 import graph.graphs.Graph;
 
