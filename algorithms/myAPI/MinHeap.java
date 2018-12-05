@@ -2,6 +2,7 @@ package myAPI;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
+import java.util.PriorityQueue;
 import java.util.Random;
 
 public class MinHeap<Type extends Comparable<Type>> {
@@ -47,6 +48,18 @@ public class MinHeap<Type extends Comparable<Type>> {
     }
 
     public boolean isEmpty(){ return size == 0;}
+
+    public boolean contains(Type x){
+        return indexOf(x) != -1;
+    }
+
+    public int indexOf(Type x){
+        if (x == null) return -1;
+        for (int i = 0; i < size; i++)
+            if (elements[i].equals(x))
+                return i;
+        return -1;
+    }
 
     public void add(Type ele){
         if (size == elements.length) resize(size*2);
