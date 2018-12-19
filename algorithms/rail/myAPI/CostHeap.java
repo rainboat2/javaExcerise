@@ -1,4 +1,6 @@
-package rail;
+package rail.myAPI;
+
+import rail.City;
 
 import java.util.NoSuchElementException;
 
@@ -87,8 +89,8 @@ public class CostHeap {
     private void sink(int i){
         while ((2*i+1) <= size-1){
             int j = 2*i+1;
-            if (j < size-1 && cmp(j, j+1) > 0) j++;
-            if (cmp(i, j) < 0)                 break;
+            if (j < size-1 && cmp(j, j+1) > 0)  j++;
+            if (cmp(i, j) < 0)                    break;
             exchange(i, j);
             i = j;
         }

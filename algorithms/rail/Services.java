@@ -16,24 +16,12 @@ public class Services {
         return dest;
     }
 
-    public void setDest(City dest) {
-        this.dest = dest;
-    }
-
     public int getFee() {
         return fee;
     }
 
-    public void setFee(int fee) {
-        this.fee = fee;
-    }
-
     public int getDistance() {
         return distance;
-    }
-
-    public void setDistance(int distance) {
-        this.distance = distance;
     }
 
 }
