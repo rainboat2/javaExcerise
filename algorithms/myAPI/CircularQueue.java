@@ -21,13 +21,8 @@ public class CircularQueue<Type> {
     private int rear;
     private Type[] array;
 
-    public CircularQueue(int size)  { array = (Type[]) new Object[size]; }
+    public CircularQueue(int size)  { array = (Type[]) new Object[size+1]; } //数组大小必需要比循环队列的大小大一
     public CircularQueue()          { this(10);}
-
-    public void clear(){
-        array = (Type[]) new Object[array.length];
-        front = rear = 0;
-    }
 
     public boolean isEmpty()  { return front == rear;}
     public boolean isFull()   { return (rear+1)%array.length == front;}

@@ -16,7 +16,7 @@ public class PalindromicSubstring {
     基于这些回文逐渐进行扩展
      */
     public String longestPalindrome(String s) {
-        //int[]{begin, end}  前开后闭, end <= s.length
+        //int[]{init, end}  前开后闭, end <= s.length
 
         String maxLength = "";
         for (int i = 0; i < s.length(); i++){

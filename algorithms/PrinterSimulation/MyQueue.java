@@ -1,11 +1,11 @@
 package PrinterSimulation;
 
 
-import java.util.AbstractQueue;
-import java.util.Iterator;
+import myAPI.MyAbstractQueue;
+
 import java.util.NoSuchElementException;
 
-public class MyQueue<Type> extends AbstractQueue<Type> {
+public class MyQueue<Type> implements MyAbstractQueue<Type> {
 
     private Node first;
     private Node last;
@@ -22,10 +22,6 @@ public class MyQueue<Type> extends AbstractQueue<Type> {
 
     public MyQueue()         { clear();}
 
-    public Iterator<Type> iterator() {
-        return null;
-    }
-
     public int size() {
         return size;
     }
@@ -39,20 +35,12 @@ public class MyQueue<Type> extends AbstractQueue<Type> {
         size = 0;
     }
 
-    public boolean add(Type type) {
+    public void add(Type type) {
         last.next = new Node(type);
         last = last.next;
         size++;
-        return true;
     }
 
-    public boolean offer(Type type) {
-        return add(type);
-    }
-
-    public Type remove() {
-        return null;
-    }
 
     public Type poll() {
         if (isEmpty())
@@ -60,10 +48,6 @@ public class MyQueue<Type> extends AbstractQueue<Type> {
         first = first.next;
         size--;
         return first.value;
-    }
-
-    public Type element() {
-        return null;
     }
 
     public Type peek(){

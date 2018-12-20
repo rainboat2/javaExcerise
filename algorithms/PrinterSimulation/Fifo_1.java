@@ -1,17 +1,21 @@
 package PrinterSimulation;
 
+import myAPI.MyAbstractQueue;
+import myAPI.MyPriorityQueue;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.AbstractQueue;
 import java.util.LinkedList;
 
+
 public class Fifo_1 extends Simulator{
 
     private int progress_bar;
     private int current_time;
     private Event current_event;
-    private AbstractQueue<Event> workflow;
+    private MyAbstractQueue<Event> workflow;
     private LinkedList<Integer> latencyTimes;
     private LinkedList<String> logs;
 

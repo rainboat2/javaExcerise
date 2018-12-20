@@ -1,8 +1,8 @@
-package PrinterSimulation;
+package myAPI;
 
 import java.util.*;
 
-public class MyPriorityQueue<Type extends Comparable<Type>> extends AbstractQueue<Type> {
+public class MyPriorityQueue<Type extends Comparable<Type>> implements MyAbstractQueue<Type>{
 
     public static void main(String[] args){
         MyPriorityQueue<Integer> priorityQueue = new MyPriorityQueue<>();
@@ -82,10 +82,6 @@ public class MyPriorityQueue<Type extends Comparable<Type>> extends AbstractQueu
         }
     }
 
-    public boolean offer(Type type) {
-        return add(type);
-    }
-
     public Type peek(){
         return array[1];
     }
@@ -100,11 +96,10 @@ public class MyPriorityQueue<Type extends Comparable<Type>> extends AbstractQueu
         return max;
     }
 
-    public boolean add(Type value){
+    public void add(Type value){
         if (array.length <= size+1) resize(array.length*2);
         array[++size] = value;
         swim(size);
-        return true;
     }
 
     private void exchange(int i, int j){
