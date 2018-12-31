@@ -20,6 +20,7 @@ public class MyLinkedList<Type> implements List<Type>, Cloneable {
     }
 
     private class Node<Type>{
+
         Type element;
         Node<Type> next;
         Node<Type> pre;

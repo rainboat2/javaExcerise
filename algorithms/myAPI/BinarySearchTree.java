@@ -53,9 +53,9 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
     private Value get(Node x, Key key) {
         if (x == null) return x.value;
         int cmp = x.key.compareTo(key);
-        if (cmp < 0) return get(x.right, key);
+        if      (cmp < 0) return get(x.right, key);
         else if (cmp > 0) return get(x.left, key);
-        else return x.value;
+        else              return x.value;
     }
 
     public void put(Key key, Value value) {
@@ -65,9 +65,9 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
     private Node put(Node x, Key key, Value value) {
         if (x == null) return new Node(key, value, 0);
         int cmp = x.key.compareTo(key);
-        if (cmp < 0) x.right = put(x.right, key, value);
-        else if (cmp > 0) x.left = put(x.left, key, value);
-        else x.value = value;
+        if       (cmp < 0) x.right = put(x.right, key, value);
+        else if  (cmp > 0) x.left = put(x.left, key, value);
+        else               x.value = value;
         x.N = size(x.right) + size(x.left) + 1;
         return x;
     }
@@ -82,7 +82,7 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
     }
 
     public Key min(){
-//        Node currentNode = root;
+//        Entry currentNode = root;
 //        while (currentNode.left != null)
 //            currentNode = currentNode.left;
 //        return currentNode;

@@ -1,5 +1,7 @@
 package cpu_scheduling;
 
+import java.util.Random;
+
 public class PCB implements Comparable<PCB>{
 
     public static final int READY = 0;
@@ -11,10 +13,10 @@ public class PCB implements Comparable<PCB>{
     private int priority;
     private int state;
 
-    public PCB(String name){
+    public PCB(String name, int needTime, int priority){
         this.name = name;
-        this.needTime = randomNumber();
-        this.priority = randomNumber();
+        this.needTime = needTime;
+        this.priority = priority;
         this.state = READY;
     }
 
@@ -44,10 +46,6 @@ public class PCB implements Comparable<PCB>{
 
     public void setState(int state) {
         this.state = state;
-    }
-
-    private int randomNumber(){
-        return (int)(Math.random()*8 + 1);
     }
 
     public int compareTo(PCB o) {

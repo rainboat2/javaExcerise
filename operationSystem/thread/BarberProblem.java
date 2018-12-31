@@ -31,7 +31,7 @@ public class BarberProblem {
             while (true){
                 while (barber <= 0) { Thread.onSpinWait();}
                 waitMutex();
-                int index = chairs.deQueue();
+                int index = chairs.poll();
                 signalMutex();
 
                 workForCustomer(index);
@@ -91,7 +91,7 @@ public class BarberProblem {
         }
 
         private void waitBarber(){
-            chairs.enQueue(index);
+            chairs.add(index);
             System.out.printf("顾客%d开始等待理发师\n", index);
             if (barber <= 0) {
                 barber++;

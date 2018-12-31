@@ -21,8 +21,9 @@ public class DijkstraName implements ShortPath<City> {
     }
 
     public Stack<City> pathTo(String end){
-        Stack<City> s = new Stack<>();
         City c = g.getVertex(end);
+        if (c.getCost() == Integer.MAX_VALUE) return null; //不可达时cost为Integer.MAX_VALUE
+        Stack<City> s = new Stack<>();
         while (c != g.getVertex(c.getShortPath().getName())){
             s.push(c);
             c = g.getVertex(c.getShortPath().getName());

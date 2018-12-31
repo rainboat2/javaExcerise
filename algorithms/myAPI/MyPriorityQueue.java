@@ -35,15 +35,16 @@ public class MyPriorityQueue<Type extends Comparable<Type>> implements MyAbstrac
 
     public MyPriorityQueue()         { this(10);}
 
+    public MyPriorityQueue(int size) {
+        array = (Type[]) new Comparable[size+1];
+    }
+
     public Iterator<Type> iterator() { return null; }
 
     public int size() { return size; }
 
     public boolean isEmpty()         { return size == 0;}
 
-    public MyPriorityQueue(int size) {
-        array = (Type[]) new Comparable[size+1];
-    }
 
     private void resize(int newSize){
         Type[] temp = (Type[])new Comparable[newSize];

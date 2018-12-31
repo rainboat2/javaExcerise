@@ -6,6 +6,11 @@ import java.util.Stack;
 
 public class DepthFirstPath implements Path {
 
+    public static void main(String[] args){
+        DepthFirstPath p = new DepthFirstPath(Graph.getGraph(), 0);
+        System.out.println(p.exit_Path_K(Graph.getGraph(), 0, 3, 2));
+    }
+
     private boolean[] marked;
     private int[] edgeTo;
     private final int s;
@@ -49,5 +54,15 @@ public class DepthFirstPath implements Path {
             stack.push(x);
         stack.push(s);
         return stack;
+    }
+
+    public boolean exit_Path_K(Graph g, int i, int j, int k){
+        if (i == j && k == 0) return true;
+        marked[i] = true;
+        for (int w : g.getAdj(i))
+            if (!isMarked(w))
+                exit_Path_K(g, w, j, k-1);
+        if (k == 0) return true;
+        else        return false;
     }
 }

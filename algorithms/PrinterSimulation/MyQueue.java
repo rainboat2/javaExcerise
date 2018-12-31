@@ -3,6 +3,7 @@ package PrinterSimulation;
 
 import myAPI.MyAbstractQueue;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class MyQueue<Type> implements MyAbstractQueue<Type> {
@@ -54,6 +55,11 @@ public class MyQueue<Type> implements MyAbstractQueue<Type> {
         if (isEmpty())
             throw new NoSuchElementException();
         return first.next.value;
+    }
+
+    @Override
+    public Iterator<Type> iterator() {
+        return null;
     }
 
     public String toString(){

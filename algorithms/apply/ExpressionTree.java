@@ -100,12 +100,11 @@ public class ExpressionTree{
         Node p;
         while(!stack.isEmpty()){
             p = stack.pop();
-            if (p != null){
-                System.out.print(p.value);
-                //先进后出， 若要先变量左节点，必需要要后添加左节点
-                stack.push(p.right);
-                stack.push(p.left);
-            }
+            if (p == null) continue;
+            System.out.print(p.value);
+            //先进后出， 若要先变量左节点，必需要要后添加左节点
+            stack.push(p.right);
+            stack.push(p.left);
         }
     }
 

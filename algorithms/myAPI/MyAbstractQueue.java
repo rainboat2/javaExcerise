@@ -1,6 +1,8 @@
 package myAPI;
 
-public interface MyAbstractQueue<Item> {
+import java.util.Iterator;
+
+public interface MyAbstractQueue<Item> extends Iterable<Item> {
 
     boolean isEmpty();
 
@@ -11,4 +13,6 @@ public interface MyAbstractQueue<Item> {
     Item poll();
 
     Item peek();
+
+    Iterator<Item> iterator();
 }

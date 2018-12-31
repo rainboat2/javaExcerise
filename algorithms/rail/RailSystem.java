@@ -14,7 +14,7 @@ import java.util.Stack;
 public class RailSystem {
 
     public static void main(String[] args){
-        RailSystem r = new RailSystem(1);
+        RailSystem r = new RailSystem(5);
         r.run();
     }
 
@@ -54,6 +54,7 @@ public class RailSystem {
     }
 
     private String recover_route(Stack<City> path){
+        if (path == null) return "无可用路径";
         int total_fee = 0, distance = 0;
         StringBuilder builder = new StringBuilder();
         City v = path.pop();

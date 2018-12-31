@@ -60,7 +60,7 @@ public class BarberProblem_2 {
         }
 
         private void cutHairs(){
-            int index = waitCustomers.deQueue();
+            int index = waitCustomers.poll();
             System.out.printf("理发师开始为顾客%d服务\n", index);
             try {
                 Thread.sleep(WORK_TIME);
@@ -83,7 +83,7 @@ public class BarberProblem_2 {
         public void run(){
             if (chairs.tryAcquire()){
                 System.out.printf("顾客%d开始等待理发师\n", index);
-                waitCustomers.enQueue(index);
+                waitCustomers.add(index);
                 acquire(mutex);
                 if (barber.availablePermits() == 0){
                     barber.release();

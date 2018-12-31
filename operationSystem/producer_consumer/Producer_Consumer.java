@@ -20,10 +20,14 @@ public class Producer_Consumer {
     private int count = 0;
 
     public void run(){
-        Thread producer = new Thread(new Producer());
-        Thread consumer = new Thread(new Consumer());
-        producer.start();
-        consumer.start();
+//        Thread producer = new Thread(new Producer());
+//        Thread consumer = new Thread(new Consumer());
+//        producer.start();
+//        consumer.start();
+        for (int i = 0; i < 2; i++){
+            new Thread(new Producer()).start();
+            new Thread(new Consumer()).start();
+        }
     }
 
     public void acquire(Semaphore s){
@@ -45,7 +49,7 @@ public class Producer_Consumer {
                 int good = product();
                 getEmpty();
                 acquire(mutex);
-                buffer.enQueue(good);
+                buffer.add(good);
                 release(full);  //满货物架加一
                 System.out.printf("货物%d成功放置在缓冲区\n", good);
                 release(mutex);
@@ -78,7 +82,7 @@ public class Producer_Consumer {
             while (true){
                 getFull();
                 acquire(mutex);
-                int good = buffer.deQueue();
+                int good = buffer.poll();
                 System.out.printf("货物%d被消费\n", good);
                 release(empty);
                 release(mutex);
