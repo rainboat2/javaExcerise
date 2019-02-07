@@ -8,13 +8,13 @@ public class Producer_Consumer {
 
     public static void main(String[] args){new Producer_Consumer().run();}
 
-    private static final int PRODUCTION_TIME = 1000;
+    private static final int PRODUCTION_TIME = 500;
     private static final int CONSUME_TIME = 1000;
     private static final int BUFFER_SIZE = 5;
 
     private Semaphore mutex = new Semaphore(1);
     private Semaphore empty = new Semaphore(BUFFER_SIZE);   //表示空的货物架数量
-    private Semaphore full = new Semaphore(0);      //表示有货的货物架数量
+    private Semaphore full = new Semaphore(0);              //表示有货的货物架数量
 
     private CircularQueue<Integer> buffer = new CircularQueue<>(BUFFER_SIZE);
     private int count = 0;
@@ -24,7 +24,7 @@ public class Producer_Consumer {
 //        Thread consumer = new Thread(new Consumer());
 //        producer.start();
 //        consumer.start();
-        for (int i = 0; i < 2; i++){
+        for (int i = 0; i < 2; i++) {
             new Thread(new Producer()).start();
             new Thread(new Consumer()).start();
         }

@@ -11,25 +11,20 @@ import java.util.Scanner;
 
 public class Scheduling {
 
-    private static final int PRIORITY = 0;
-    private static final int RR = 1;
-
     public static void main(String[] args){
         Scheduling s = new Scheduling();
-        s.simulator(PRIORITY);
-        //s.simulator(RR, 6);
+        s.simulator();
     }
 
     private int cpuTime;
-    private MyAbstractQueue<PCB> queue;
+    private MyPriorityQueue<PCB> queue;
     private HashMap<PCB, Integer> roundTime;
     private HashMap<PCB, Integer> waitingTime;
     private HashMap<PCB, Integer> cpu;
     private PCB[] pcbs = new PCB[5];
 
-    public void init(int model){
-        if      (model == RR) queue = new CircularQueue<>();
-        else                  queue = new MyPriorityQueue<>();
+    public void init(){
+        queue = new MyPriorityQueue<>();
         roundTime = new HashMap<>();
         waitingTime = new HashMap<>();
         cpu = new HashMap<>();
@@ -57,8 +52,8 @@ public class Scheduling {
         return p;
     }
 
-    public void simulator(int model){
-        init(model);
+    public void simulator(){
+        init();
         printInformation();
         while (!queue.isEmpty()){
             cpuTime++;

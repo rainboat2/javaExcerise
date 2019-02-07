@@ -1,7 +1,5 @@
 package one;
 
-
-
 /**
  * Definition for singly-linked list.
  * public class ListNode {

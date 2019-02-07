@@ -35,8 +35,8 @@ public class PalindromicSubstring {
 
 
     /*
-    但i = j 时，以 i 为中心来查找回文
-    当i ！= j 时，以 i ，j 为中心来查找
+     * 但i = j 时，以 i 为中心来查找回文
+     * 当i ！= j 时，以 i ，j 为中心来查找
      */
     public String findPalindromic(int i, int j, String s){
         int N = s.length();

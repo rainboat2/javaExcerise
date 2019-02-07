@@ -55,6 +55,7 @@ public class MainMemory {
         System.out.println(s.toString());
     }
 
+
     private void execute(PC.Instruction instruction, Page p){
         if (instruction.getOperation().equals("存"))
             p.setChange(true);

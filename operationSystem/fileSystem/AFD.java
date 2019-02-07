@@ -19,7 +19,7 @@ public class AFD {
     public void run(String operation, String fileName){
         UserFile uf = ufd.search(fileName);
         if (uf == null && !operation.equals("create")){
-            System.out.printf("文件%s不存在！", fileName);
+            System.out.printf("文件%s不存在！\n", fileName);
             return;
         }
         switch (operation){
@@ -71,6 +71,10 @@ public class AFD {
     private void execute(UserFile uf){
         if (! uf.isExecute()){
             System.out.println("无打开该文件的权限");
+            return;
+        }
+        if (openFiles.size() >= 5){
+            System.out.println("打开文件数量达到上限");
             return;
         }
         openFiles.add(uf);
